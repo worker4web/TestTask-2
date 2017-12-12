@@ -229,7 +229,7 @@ public class AuthTransaction {
     }
 
     public String getResultCode() {
-        return resultCode;
+        return resultCode==null ? "" : resultCode;
     }
 
     public void setResultCode(String resultCode) {
@@ -237,7 +237,7 @@ public class AuthTransaction {
     }
 
     public String getMessageCode() {
-        return messageCode;
+        return messageCode==null ? "" : messageCode;
     }
 
     public void setMessageCode(String messageCode) {
@@ -245,7 +245,7 @@ public class AuthTransaction {
     }
 
     public String getMessageText() {
-        return messageText;
+        return messageText==null ? "":messageText;
     }
 
     public void setMessageText(String messageText) {
@@ -253,7 +253,7 @@ public class AuthTransaction {
     }
 
     public String getResponseCode() {
-        return responseCode;
+        return responseCode==null?"":responseCode;
     }
 
     public void setResponseCode(String responseCode) {
@@ -261,7 +261,7 @@ public class AuthTransaction {
     }
 
     public String getAuthCode() {
-        return authCode;
+        return authCode==null?"":authCode;
     }
 
     public void setAuthCode(String authCode) {
@@ -269,7 +269,7 @@ public class AuthTransaction {
     }
 
     public String getAvsResultCode() {
-        return avsResultCode;
+        return avsResultCode==null?"":avsResultCode;
     }
 
     public void setAvsResultCode(String avsResultCode) {
@@ -277,7 +277,7 @@ public class AuthTransaction {
     }
 
     public String getCvvResultCode() {
-        return cvvResultCode;
+        return cvvResultCode==null?"":cvvResultCode;
     }
 
     public void setCvvResultCode(String cvvResultCode) {
@@ -285,15 +285,14 @@ public class AuthTransaction {
     }
 
     public String getTransId() {
-        return transId;
-    }
+        return transId==null?"":transId;}
 
     public void setTransId(String transId) {
         this.transId = transId.length()>50 ? transId.substring(0,49) : transId;
     }
 
     public String getApprovedAmount() {
-        return approvedAmount;
+        return approvedAmount==null?"":approvedAmount;
     }
 
     public void setApprovedAmount(String approvedAmount) {

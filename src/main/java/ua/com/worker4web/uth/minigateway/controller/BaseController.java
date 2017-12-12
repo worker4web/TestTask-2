@@ -37,13 +37,13 @@ public class BaseController {
     AuthTransactionRepo authTransactionRepo;
 
 
-    @RequestMapping(value = "/getData", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public Transaction handleRequest(HttpServletRequest request,
                                      @RequestParam(value="userName") String userName,
                                      @RequestParam(value="apiKey") String apiKey,
                                      @RequestParam(value="transactionKey") String transactionKey,
                                      @RequestParam(value="amount") int amount,
-                                     @RequestParam(value="accountNumber ") String accountNumber,
+                                     @RequestParam(value="accountNumber") String accountNumber,
                                      @RequestParam(value="expirationDate") String expirationDate,
                                      @RequestParam(value="cscCode") String cscCode,
                                      @RequestParam(value="customerAccountCode") String customerAccountCode,
@@ -80,7 +80,6 @@ public class BaseController {
             String response = connector.sendData(content);
             parser.parse(authTransaction, response);
             backTransformer.transform(transaction, authTransaction);
-
             transactionRepo.save(transaction);
             authTransactionRepo.save(authTransaction);
         }

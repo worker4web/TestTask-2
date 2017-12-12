@@ -20,11 +20,10 @@ import java.util.Properties;
  */
 
 @Configuration
+@PropertySource("classpath:config.properties")
 @ComponentScan("ua.com.worker4web.uth.minigateway")
 @EntityScan("ua.com.worker4web.uth.minigateway.model")
-@PropertySource("classpath:config.properties")
 @EnableTransactionManagement
-
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Value("${hibernate.dialect}")
@@ -43,7 +42,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public JpaVendorAdapter jpaVendorAdapter() {
+    public JpaVendorAdapter getJpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setShowSql(showSql);
         adapter.setDatabasePlatform(sqlDialect);
@@ -52,13 +51,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory
-            (DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
 
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setJpaVendorAdapter(jpaVendorAdapter);
+        em.setJpaVendorAdapter(getJpaVendorAdapter());
         em.setJpaProperties(additionalProperties());
         return em;
     }
+
 }

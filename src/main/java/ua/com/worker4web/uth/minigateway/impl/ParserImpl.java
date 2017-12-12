@@ -1,6 +1,5 @@
 package ua.com.worker4web.uth.minigateway.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.authorize.api.contract.v1.CreateTransactionResponse;
 import net.authorize.api.contract.v1.MessageTypeEnum;
 import net.authorize.api.contract.v1.TransactionResponse;
@@ -8,7 +7,10 @@ import org.springframework.stereotype.Service;
 import ua.com.worker4web.uth.minigateway.intf.Parser;
 import ua.com.worker4web.uth.minigateway.model.AuthTransaction;
 
-import java.io.IOException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.StringReader;
 
 /**
  * Created by worker4web on 11/15/2017.
@@ -18,10 +20,13 @@ public class ParserImpl implements Parser {
     public void parse(AuthTransaction authTransaction, String responseContent) {
 
         CreateTransactionResponse response = null;
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            response = mapper.readValue(responseContent, CreateTransactionResponse.class);
-        } catch (IOException ex) {
+            JAXBContext jaxbContext = JAXBContext.newInstance(CreateTransactionResponse.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+            StringReader reader = new StringReader(responseContent);
+            response = (CreateTransactionResponse) unmarshaller.unmarshal(reader);
+        } catch (JAXBException ex) {
             authTransaction = null;
         }
 
